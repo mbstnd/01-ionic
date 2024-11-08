@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Lista de Tareas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Formulario para Agregar Nueva Tarea -->
+  <div class="task-form">
+    <ion-input placeholder="Título de la tarea" [(ngModel)]="newTask.title"></ion-input>
+    <ion-input placeholder="Descripción de la tarea" [(ngModel)]="newTask.description"></ion-input>
+    <ion-button expand="full" (click)="addTask()">Agregar Tarea</ion-button>
+  </div>
+
+  <!-- Lista de Tareas -->
+  <ion-list>
+    <ion-item *ngFor="let task of tasks; index as i">
+      <ion-label *ngIf="!task.isEditing">
+        <h2>{{ task.title }}</h2>
+        <p>{{ task.description }}</p>
+      </ion-label>
+      <div *ngIf="task.isEditing">
+        <ion-input placeholder="Editar título" [(ngModel)]="task.title"></ion-input>
+        <ion-input placeholder="Editar descripción" [(ngModel)]="task.description"></ion-input>
+      </div>
+      <ion-button color="primary" (click)="toggleEditTask(i)">
+        {{ task.isEditing ? 'Guardar' : 'Editar' }}
+      </ion-button>
+      <ion-button color="danger" (click)="deleteTask(i)">Eliminar</ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>
